@@ -1,12 +1,12 @@
 import psutil
 
-def get_cpu_usage():
-    return psutil.cpu_percent(interval=1)
+def cpu():
+    return psutil.cpu_percent(interval=0.5)
 
-def get_ram_usage():
+def ram():
     memory = psutil.virtual_memory()
     return memory.percent
 
-def get_disk_usage():
-    disk = psutil.disk_usage('/')
-    return disk.percent
+def disk():
+    Disk = psutil.disk_usage('/')
+    return Disk.percent
