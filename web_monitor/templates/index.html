@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linux Web System Monitor</title>
+    <style>
+        body { font-family: Arial; background: #111; color: white; text-align: center; }
+        .box { font-size: 22px; margin: 20px; }
+        .bar { width: 300px; height: 20px; background: #333; margin: auto; }
+        .fill { height: 100%; background: lime; }
+    </style>
+</head>
+<body>
+
+<h1>🖥️ Linux Web System Monitor</h1>
+
+<div class="box">CPU: <span id="cpu">0</span>%</div>
+<div class="bar"><div id="cpu_bar" class="fill"></div></div>
+
+<div class="box">RAM: <span id="ram">0</span>%</div>
+<div class="bar"><div id="ram_bar" class="fill"></div></div>
+
+<div class="box">Disk: <span id="disk">0</span>%</div>
+<div class="bar"><div id="disk_bar" class="fill"></div></div>
+
+<script>
+async function updateStats() {
+    const res = await fetch("/stats");
+    const data = await res.json();
+
+    document.getElementById("cpu").innerText = data.cpu;
+    document.getElementById("ram").innerText = data.ram;
+    document.getElementById("disk").innerText = data.disk;
+
+    document.getElementById("cpu_bar").style.width = data.cpu + "%";
+    document.getElementById("ram_bar").style.width = data.ram + "%";
+    document.getElementById("disk_bar").style.width = data.disk + "%";
+}
+
+setInterval(updateStats, 1000);
+updateStats();
+</script>
+
+</body>
+</html>
